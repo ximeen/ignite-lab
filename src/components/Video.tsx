@@ -1,35 +1,10 @@
 import { DefaultUi, Player, Youtube } from "@vime/react";
 import { CaretRight, DiscordLogo, FileArrowDown, Image, Lightning } from "phosphor-react";
-import { gql, useQuery } from "@apollo/client";
 import '@vime/core/themes/default.css'
+import { useGetLessonBySlugQuery } from "../graphql/generated";
 
 
-const GET_LESSON_BY_SLUG = gql`
-    query GetLessonBySlug($slug: String) {
-    lesson(where: {slug: $slug}) {
-    title
-    videoId
-    description
-    teacher {
-      avatarURL
-      name
-      bio
-    }
-  }
-}
-`
-interface GetLessonBySlugResponse{
-    lesson: {
-        title: string
-        videoId: string
-        description: string
-        teacher:{
-            avatarURL: string
-            bio: string
-            name: string
-        }
-    }
-}
+
 
 interface videoProps {
     lessonSlug: string
@@ -37,13 +12,13 @@ interface videoProps {
 
 export function Video(props: videoProps){
 
-    const {data} = useQuery<GetLessonBySlugResponse>(GET_LESSON_BY_SLUG, {
+    const {data} = useGetLessonBySlugQuery({
         variables:{
             slug:props.lessonSlug,
         }
     })
 
-    if(!data){
+    if(!data || !data.lesson){
         return(
             <div className="flex-1">
                 <p>Carregando....</p>
@@ -69,7 +44,8 @@ export function Video(props: videoProps){
                             <h1 className="text-2xl font-bold ">{data.lesson.title}</h1>
                             <p className="mt-4 text-gray-200 leading-relaxed">{data.lesson.description}</p>
 
-                            <div className="flex items-center gap-4 mt-6">
+                        {data.lesson.teacher && (
+                                <div className="flex items-center gap-4 mt-6">
                                 <img 
                                     src={data.lesson.teacher.avatarURL}
                                     alt="Imagem de perfil github"
@@ -80,6 +56,7 @@ export function Video(props: videoProps){
                                     <span className="text-gray-200 text-sm block">{data.lesson.teacher.bio}</span>
                                 </div>
                             </div>
+                        )}
                         </div>
 
                         <div className="flex flex-col gap-4">

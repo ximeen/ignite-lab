@@ -1,5 +1,5 @@
 # Ignite Lab
-Esse é um projeto criado como uma plataforma de apresentação de aulas 🚀🚀.
+Projeto de plataforma de aulas 🚀🚀.
 -------
 
 ![image](https://user-images.githubusercontent.com/82242762/194769916-fd6624ec-8d1e-4285-a71c-b3f025f12d52.png)

@@ -10,3 +10,5 @@ Esse projeto consiste no usuario realizar um cadastrado com seu nome e email, ao
 
 -------
 ![image](https://user-images.githubusercontent.com/82242762/194770009-ee1a5cc5-c8d1-4294-a481-fcb19595dbb3.png)
+
+-------
